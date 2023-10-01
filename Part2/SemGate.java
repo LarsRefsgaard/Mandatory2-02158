@@ -1,9 +1,8 @@
 //Semaphore implementation of Gate
-//Mandatory assignment 
+//Mandatory assignment
 //Course 02158 Concurrent Programming, DTU,  Fall 2023
 
 //Hans Henrik Lovengreen     Oct 26, 2023
-
 
 public class SemGate extends Gate {
 
@@ -12,24 +11,32 @@ public class SemGate extends Gate {
     boolean isopen = false;
 
     public void pass() throws InterruptedException {
-        g.P(); 
+        g.P();
         g.V();
     }
 
     public void open() {
-        try { 
-            e.P(); 
-            if (!isopen) { g.V();  isopen = true; }
+        try {
+            e.P();
+            if (!isopen) {
+                g.V();
+                isopen = true;
+            }
             e.V();
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
     }
 
     public void close() {
-        try { 
+        try {
             e.P();
-            if (isopen) { g.P();  isopen = false; }
+            if (isopen) {
+                g.P();
+                isopen = false;
+            }
             e.V();
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
     }
 
 }

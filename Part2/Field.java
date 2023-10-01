@@ -6,18 +6,19 @@
 
 public class Field {
 
-    public Field() {
+    Semaphore semaphore = new Semaphore(0);
 
+    public Field() {
     }
 
     /* Block until car no. may safely enter tile at pos */
     public void enter(int no, Pos pos) throws InterruptedException {
-
+        semaphore.P();
     }
 
     /* Release tile at position pos */
     public void leave(Pos pos) {
-
+        semaphore.V();
     }
 
 }

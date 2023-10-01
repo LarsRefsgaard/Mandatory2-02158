@@ -7,18 +7,18 @@
 public class SafeAlley extends Alley {
 
     protected SafeAlley() {
-        
+
     }
 
     /* Block until car no. may enter alley */
     public void enter(int no) throws InterruptedException {
         if (no < 5) {
-            
+
         } else {
-            
+
         }
 
-     }
+    }
 
     /* Register that car no. has left the alley */
     public void leave(int no) {

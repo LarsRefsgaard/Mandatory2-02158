@@ -396,7 +396,7 @@ class Ground extends JPanel {
             paintCar(field, car);
         });
         bridgeCheck();
-        
+
     }
 
     public void paintCar(Graphics g, CarModel car) {
@@ -422,7 +422,6 @@ class Ground extends JPanel {
             g.drawString("" + id, x - w / 2, y + (h / 4) + 1); // (edge-w)/2),((edge+h/2)/2+1));
         }
 
-     
         // Count tile usage for collision detection (shown in next frame).
         // All tiles should already have been reset.
         // Cars must be on track for this simple detection to work properly.
@@ -443,9 +442,13 @@ class Ground extends JPanel {
             long dir = Location.direction(diff);
             Pos adj = Location.position(Location.add(Location.location(pos), dir));
             area[adj.row][adj.col].use();
-            if (isOnBridge(pos)|| isOnBridge(adj)) { onbridge++; }
+            if (isOnBridge(pos) || isOnBridge(adj)) {
+                onbridge++;
+            }
         } else {
-            if (isOnBridge(pos)) { onbridge++; }
+            if (isOnBridge(pos)) {
+                onbridge++;
+            }
         }
     }
 
@@ -474,16 +477,16 @@ class ControlPanel extends JPanel {
     // JButton barrier_shutdown = new JButton("Shut down");
     // JPanel bridge_panel = new JPanel(); // Combined with barrier panel
 
-    //    JCheckBox bridge_on = new JCheckBox("Show", false);
+    // JCheckBox bridge_on = new JCheckBox("Show", false);
     // JCheckBox bridge_on = new JCheckBox("", false);
 
-    JLabel     threshold_label = new JLabel("Threshold:");
+    JLabel threshold_label = new JLabel("Threshold:");
     JComboBox<String> barrier_threshold = new JComboBox<String>();
     int currentThreshold = 9;
 
     // int currentLimit = Cars.initialBridgeLimit;
-    // JLabel     limit_label  = new JLabel("Bridge limit:");
-    // JComboBox<String>  bridge_limit = new JComboBox<String>();
+    // JLabel limit_label = new JLabel("Bridge limit:");
+    // JComboBox<String> bridge_limit = new JComboBox<String>();
 
     JPanel test_panel = new JPanel();
 
@@ -550,16 +553,15 @@ class ControlPanel extends JPanel {
         });
 
         /*
-        barrier_shutdown.addActionListener((event) -> {
-                cars.barrierShutDown(null);
-        });
-        */
-        
+         * barrier_shutdown.addActionListener((event) -> {
+         * cars.barrierShutDown(null);
+         * });
+         */
+
         barrier_panel.add(barrier_on);
         barrier_panel.add(barrier_off);
         // barrier_panel.add(barrier_shutdown);
 
-        
         barrier_panel.add(new JLabel("   "));
 
         for (int i = 0; i <= 7; i++) {
@@ -577,38 +579,37 @@ class ControlPanel extends JPanel {
                 }
             }
         });
-        
-        barrier_panel.add(threshold_label);
-        barrier_panel.add(barrier_threshold);         
 
+        barrier_panel.add(threshold_label);
+        barrier_panel.add(barrier_threshold);
 
         barrier_panel.add(new JLabel("   "));
 
         /*
-        barrier_panel.add(new JLabel("Bridge:"));
-        barrier_panel.add(bridge_on);
-
-        bridge_on.addItemListener( (event) -> {
-                cars.showBridge(bridge_on.isSelected());
-                
-        });
-
-        for (int i = 0; i < 7; i++) 
-            bridge_limit.addItem(""+(i));
-        bridge_limit.setSelectedIndex(currentLimit);
-
-        bridge_limit.addActionListener( (event) -> {
-                int i = bridge_limit.getSelectedIndex();
-                // System.out.println("Select event " + i);
-                // Ignore internal changes
-                if (i!= currentLimit) {
-                    // System.out.println("Calling setLimit");
-                    cars.setLimit(i);
-                }
-        });
-
-        barrier_panel.add(bridge_limit);
-         */        
+         * barrier_panel.add(new JLabel("Bridge:"));
+         * barrier_panel.add(bridge_on);
+         *
+         * bridge_on.addItemListener( (event) -> {
+         * cars.showBridge(bridge_on.isSelected());
+         *
+         * });
+         *
+         * for (int i = 0; i < 7; i++)
+         * bridge_limit.addItem(""+(i));
+         * bridge_limit.setSelectedIndex(currentLimit);
+         *
+         * bridge_limit.addActionListener( (event) -> {
+         * int i = bridge_limit.getSelectedIndex();
+         * // System.out.println("Select event " + i);
+         * // Ignore internal changes
+         * if (i!= currentLimit) {
+         * // System.out.println("Calling setLimit");
+         * cars.setLimit(i);
+         * }
+         * });
+         *
+         * barrier_panel.add(bridge_limit);
+         */
 
         // add(barrier_panel);
 
@@ -634,7 +635,7 @@ class ControlPanel extends JPanel {
         barrier_threshold.setEnabled(false);
     }
 
-    public void barrierSetEnd(int k) { 
+    public void barrierSetEnd(int k) {
         // barrier_on.setEnabled(true); //
         // barrier_off.setEnabled(true);
         if (k != currentThreshold) {
@@ -642,8 +643,8 @@ class ControlPanel extends JPanel {
             barrier_threshold.setSelectedIndex(k - 2);
         }
         barrier_threshold.setEnabled(true);
-    }     
-    
+    }
+
     public void shutDownBegin() {
         barrier_on.setEnabled(false);
         barrier_off.setEnabled(false);
@@ -654,30 +655,30 @@ class ControlPanel extends JPanel {
         barrier_on.setEnabled(true);
         barrier_off.setEnabled(true);
         // barrier_shutdown.setEnabled(true);
-    }    
+    }
 
     /*
-    public void disableBridge() {
-        bridge_limit.setEnabled(false);
-    }
-
-    public void enableBridge() {
-        bridge_limit.setEnabled(true);
-    }
-
-    public void setLimit(int k) {
-        currentLimit = k;
-        if (k != bridge_limit.getSelectedIndex())
-            bridge_limit.setSelectedIndex(k);
-    }
-
-    public void setBridge(boolean active) {
-        // Precaution to avoid infinite event sequence of events
-        if (active != bridge_on.isSelected()) {
-            bridge_on.setSelected(active);
-        }
-    }
-    */
+     * public void disableBridge() {
+     * bridge_limit.setEnabled(false);
+     * }
+     *
+     * public void enableBridge() {
+     * bridge_limit.setEnabled(true);
+     * }
+     *
+     * public void setLimit(int k) {
+     * currentLimit = k;
+     * if (k != bridge_limit.getSelectedIndex())
+     * bridge_limit.setSelectedIndex(k);
+     * }
+     *
+     * public void setBridge(boolean active) {
+     * // Precaution to avoid infinite event sequence of events
+     * if (active != bridge_on.isSelected()) {
+     * bridge_on.setSelected(active);
+     * }
+     * }
+     */
 }
 
 @SuppressWarnings({ "serial" })
@@ -759,66 +760,66 @@ public class Cars extends JFrame implements CarDisplayI {
         }
     }
 
-
+    /*
+     * NO blocking limit setting in this version
+     *
+     * // Variables used during limit setting
+     * private SetLimitThread limitThread;
+     * private Semaphore limitDone;
+     * private int limitValue;
+     *
+     *
+     * Thread to carry out change of bridge limit since
+     * it may be blocked by CarControl
+     *
+     * class SetLimitThread extends Thread {
+     * int newmax;
+     *
+     * public SetLimitThread(int newmax) {
+     * this.newmax = newmax;
+     *
+     * }
+     *
+     * public void run() {
+     * // ctr.setLimit(newmax);
+     *
+     * System.out.println("SetLimit returned");
+     * EventQueue.invokeLater(new Runnable() {
+     * public void run() { endSetLimit(); }}
+     * );
+     *
+     * }
+     * }
+     */
 
     /*
-     *  NO blocking limit setting in this version
+     * No barrier shutdown in this version
      *
-        // Variables used during limit setting
-        private SetLimitThread limitThread; 
-        private Semaphore      limitDone;
-        private int            limitValue;
-        
-        
-         * Thread to carry out change of bridge limit since
-         * it may be blocked by CarControl
-         
-        class SetLimitThread extends Thread {
-            int newmax;
-
-            public SetLimitThread(int newmax) {
-                this.newmax =  newmax;
-
-            }
-
-            public void run() {
-                // ctr.setLimit(newmax);
-                
-                System.out.println("SetLimit returned");
-                EventQueue.invokeLater(new Runnable() {
-                    public void run() { endSetLimit(); }}
-                );
-                
-            }
-        }
-    */
- 
-    /* No barrier shutdown in this version
-
-    // Variables used during barrier shut down 
-    private ShutDownThread shutDownThread = null;
-    private Semaphore shutDownSem;
-
-    // Thread to carry out barrier off shut down since it may be blocked by CarControl
-
-    class ShutDownThread extends Thread { 
-        int newmax;
-
-        public void run() { 
-            try { 
-                ctr.barrierShutDown();
-
-                //System.out.println("Shut down returned"); 
-                EventQueue.invokeLater( () -> { shutDownDone(); } );
-
-            } catch (Exception e) { 
-                System.err.println("Exception in shut down thread");
-                e.printStackTrace(); 
-            }
-
-        }
-    }
-    */
+     * // Variables used during barrier shut down
+     * private ShutDownThread shutDownThread = null;
+     * private Semaphore shutDownSem;
+     *
+     * // Thread to carry out barrier off shut down since it may be blocked by
+     * CarControl
+     *
+     * class ShutDownThread extends Thread {
+     * int newmax;
+     *
+     * public void run() {
+     * try {
+     * ctr.barrierShutDown();
+     *
+     * //System.out.println("Shut down returned");
+     * EventQueue.invokeLater( () -> { shutDownDone(); } );
+     *
+     * } catch (Exception e) {
+     * System.err.println("Exception in shut down thread");
+     * e.printStackTrace();
+     * }
+     *
+     * }
+     * }
+     */
 
     void buildGUI(final Cars cars, final Simulator<CarModel> sim) {
         try {
@@ -852,7 +853,7 @@ public class Cars extends JFrame implements CarDisplayI {
 
                 // cp.setBridge(false);
                 // cp.disableBridge();
-                
+
                 pack();
                 setBounds(100, 100, getWidth(), getHeight());
                 setTitle("Cars " + version);
@@ -911,54 +912,56 @@ public class Cars extends JFrame implements CarDisplayI {
         barrieractive = false;
     }
 
-    /* 
-    void barrierShutDown(Semaphore done) {
+    /*
+     * void barrierShutDown(Semaphore done) {
+     *
+     * if (shutDownThread != null ) {
+     * println("WARNING: Barrier shut down already in progress");
+     * if (done != null) done.V();
+     * return;
+     * }
+     *
+     * gnd.setBarrierEmphasis(true);
+     * cp.shutDownBegin();
+     * // Hold values for post-processing
+     * shutDownSem = done;
+     * shutDownThread = new ShutDownThread();
+     * shutDownThread.start();
+     * }
+     *
+     * // Called when Shut Down Thread has ended
+     * void shutDownDone() {
+     *
+     * cp.shutDownEnd();
+     *
+     * if (shutDownSem != null ) shutDownSem.V();
+     * shutDownThread = null;
+     * shutDownSem = null;
+     *
+     * gnd.setBarrierEmphasis(false);
+     * gnd.showBarrier(false);
+     * barrieractive = false;
+     * }
+     */
 
-        if (shutDownThread != null ) {
-            println("WARNING: Barrier shut down already in progress");
-            if (done != null) done.V();
-            return;
-        }
-
-        gnd.setBarrierEmphasis(true);
-        cp.shutDownBegin();
-        // Hold values for post-processing
-        shutDownSem = done;
-        shutDownThread = new ShutDownThread();
-        shutDownThread.start();
-    }
-    
-    // Called when Shut Down Thread has ended
-    void shutDownDone() {
-
-        cp.shutDownEnd();
- 
-        if (shutDownSem != null ) shutDownSem.V();
-        shutDownThread = null;
-        shutDownSem = null;
-
-        gnd.setBarrierEmphasis(false);
-        gnd.showBarrier(false);
-        barrieractive = false;
-    }
-    */
-    
     // Variables used during threshold setting
     private SetThread setThread = null;
     private Semaphore setSem = null;
     private int setVal;
 
-    void  barrierSet(int k, Semaphore done) {
+    void barrierSet(int k, Semaphore done) {
 
-        if (setThread != null ) {
+        if (setThread != null) {
             println("WARNING: Threshold setting already in progress");
-            if (done != null) done.V();
+            if (done != null)
+                done.V();
             return;
         }
 
         if (k < 2 || k > 9) {
             println("WARNING: Threshold value out of range: " + k + " (ignored)");
-            if (done != null) done.V();
+            if (done != null)
+                done.V();
             return;
         }
 
@@ -977,19 +980,19 @@ public class Cars extends JFrame implements CarDisplayI {
         cp.barrierSetEnd(setVal);
         gnd.setBarrierEmphasis(false);
 
-        if (setSem != null ) setSem.V();
+        if (setSem != null)
+            setSem.V();
         setThread = null;
         setSem = null;
     }
 
-    
-     void barrierClicked(boolean on) {
+    void barrierClicked(boolean on) {
         if (on)
             barrierOn();
         else
             barrierOff();
     }
-    
+
     public void setSlow(final boolean slowdown) {
         gnd.setSlow(slowdown);
     }
@@ -1028,12 +1031,12 @@ public class Cars extends JFrame implements CarDisplayI {
     }
 
     /*
-    void showBridge(boolean active) {
-        gnd.showBridge(active);
-        if (active) cp.enableBridge(); else cp.disableBridge();
-     }
-    */
-    
+     * void showBridge(boolean active) {
+     * gnd.showBridge(active);
+     * if (active) cp.enableBridge(); else cp.disableBridge();
+     * }
+     */
+
     void startTileClick(int no) {
         if (gateopen[no])
             stopCar(no);
@@ -1074,50 +1077,50 @@ public class Cars extends JFrame implements CarDisplayI {
     }
 
     /*
-    void setLimit(int max) {
-
-        if (max < 0 || max > 6) {
-            println("ERROR: Illegal limit value");
-            return;
-        }
-
-        ctr.setLimit(max);
-        gnd.setLimit(max);
-        cp.setLimit(max);
-    }
-    */
+     * void setLimit(int max) {
+     *
+     * if (max < 0 || max > 6) {
+     * println("ERROR: Illegal limit value");
+     * return;
+     * }
+     *
+     * ctr.setLimit(max);
+     * gnd.setLimit(max);
+     * cp.setLimit(max);
+     * }
+     */
 
     /*
      * No blocking of setLimit in this version
-     * 
+     *
      * void setLimit(int max, Semaphore done) {
-     * 
+     *
      * if (! bridgepresent) { println("ERROR: No bridge at this playground!");
      * if (done != null) done.V(); return; }
-     * 
+     *
      * if (max < 1 || max > 6) { println("ERROR: Illegal limit value"); if (done
      * != null) done.V(); return; }
-     * 
+     *
      * if (limitThread != null ) {
      * println("WARNING: Limit setting already in progress"); if (done != null)
      * done.V(); return; }
-     * 
+     *
      * cp.disableLimit(); // Hold values for post-processing limitValue = max;
      * limitDone = done; limitThread = new SetLimitThread(max);
      * limitThread.start(); }
-     * 
+     *
      * // Called when SetLimitThread has ended void endSetLimit() {
-     * 
+     *
      * System.out.println("endSetLimit start"); if (limitDone != null )
      * limitDone.V();
-     * 
+     *
      * gnd.setLimit(limitValue); cp.enableLimit(limitValue); limitThread = null;
      * limitDone = null; System.out.println("endSetLimit end"); }
      */
 
     /*
      * Implementation of Car Display Interface
-     * 
+     *
      */
 
     public Pos getStartPos(int no) { // Identify start position of Car no.
@@ -1215,35 +1218,38 @@ class CarTestWrapper implements CarTestingI {
             }
         });
     }
-    
-    /*
-    private Semaphore doneSem;
-    
-    // Start barrier shut down
-    public void startBarrierShutDown() {
-        if (doneSem != null) {
-            cars.println("WARNING: Shut down already active when startBarrierShutDown() called");
-            return;
-        }
-        final Semaphore done = new Semaphore(0);
-        doneSem = done;
-        EventQueue.invokeLater( () -> { cars.barrierShutDown(done); }); 
-    }  
 
-    public void awaitBarrierShutDown() {
-        try {
-             if (doneSem != null) {
-                doneSem.P();
-                doneSem = null;
-             } else 
-                cars.println("WARNING: no active shut down when awaitBarrierShutDown() called");
-         } catch (InterruptedException e) {}
-    }
-    */
-    
+    /*
+     * private Semaphore doneSem;
+     *
+     * // Start barrier shut down
+     * public void startBarrierShutDown() {
+     * if (doneSem != null) {
+     * cars.
+     * println("WARNING: Shut down already active when startBarrierShutDown() called"
+     * );
+     * return;
+     * }
+     * final Semaphore done = new Semaphore(0);
+     * doneSem = done;
+     * EventQueue.invokeLater( () -> { cars.barrierShutDown(done); });
+     * }
+     *
+     * public void awaitBarrierShutDown() {
+     * try {
+     * if (doneSem != null) {
+     * doneSem.P();
+     * doneSem = null;
+     * } else
+     * cars.
+     * println("WARNING: no active shut down when awaitBarrierShutDown() called");
+     * } catch (InterruptedException e) {}
+     * }
+     */
+
     Semaphore setDoneSem;
 
-    // Start setting of threshold (asynchronously) 
+    // Start setting of threshold (asynchronously)
     public void startBarrierSet(final int k) {
         if (setDoneSem != null) {
             cars.println("WARNING: setting alread active when startBarrierSet(k) called");
@@ -1253,8 +1259,10 @@ class CarTestWrapper implements CarTestingI {
         final Semaphore done = new Semaphore(0);
         setDoneSem = done;
         EventQueue.invokeLater(new Runnable() {
-            public void run() { cars.barrierSet(k, done); }}
-                );
+            public void run() {
+                cars.barrierSet(k, done);
+            }
+        });
     }
 
     public void awaitBarrierSet() {
@@ -1262,20 +1270,21 @@ class CarTestWrapper implements CarTestingI {
             if (setDoneSem != null) {
                 setDoneSem.P();
                 setDoneSem = null;
-            } else 
+            } else
                 cars.println("WARNING: no active setting when awaitBarrierSet() called");
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
 
     }
 
     /*
-    public void setLimit(final int k) { 
-        EventQueue.invokeLater( () -> {
-          cars.setLimit(k); 
-        });  
-    }
-    */
-    
+     * public void setLimit(final int k) {
+     * EventQueue.invokeLater( () -> {
+     * cars.setLimit(k);
+     * });
+     * }
+     */
+
     public void setSlow(final boolean slowdown) {
         EventQueue.invokeLater(() -> {
             cars.setSlow(slowdown);
@@ -1313,7 +1322,7 @@ class CarTestWrapper implements CarTestingI {
      * EventQueue.invokeLater(new Runnable() { public void run() {
      * cars.setLimit(k, done); }} ); try { done.P(); } catch
      * (InterruptedException e) {}
-     * 
+     *
      * }
      */
 
@@ -1384,11 +1393,10 @@ class Clock implements ClockI {
 
 }
 
-
 /*
  * A waypoint represents a position on the track that a car must pass
  * Once reached, an optional callback is executed asynchronously
- * 
+ *
  * A waypoint points the next one to head for (if any)
  */
 class Waypoint {
@@ -1399,7 +1407,7 @@ class Waypoint {
     public Runnable cb;
     public Waypoint next;
 
-    // We maintain a common pool of waypoints 
+    // We maintain a common pool of waypoints
     // in order to avoid ultra-fast cars exhausting memory.
     static Waypoint freeList = null;
     static int created = 0;
@@ -1454,33 +1462,33 @@ class CarModel implements CarI, Tickable {
     /*
      * CarModel models the movement of a car along a route of waypoints
      * (destinations)
-     * 
+     *
      * The movement is driven by calls of tick() from the virtual clock
      * provided.
-     * 
-     * The route is represented by a linked list of waypoints identified 
-     * by monotonically increasing integers. 
-     * 
+     *
+     * The route is represented by a linked list of waypoints identified
+     * by monotonically increasing integers.
+     *
      * Important: All positions used by this class are canonical and hence may
      * be compared using ==.
      */
 
-    static final double accel = 200.0;  // Unit: tiles/(s*s)
-    static final double decel =  50.0;  // Unit: tiles/(s*s)
-    
+    static final double accel = 200.0; // Unit: tiles/(s*s)
+    static final double decel = 50.0; // Unit: tiles/(s*s)
+
     static final double slowFactor = 0.3;
 
     /* Using a common background server thread for call-backs */
     static ExecutorService exec = Executors.newSingleThreadExecutor();
 
-    int no;      // Immutable
+    int no; // Immutable
     Color color; // Immutable
 
-    Waypoint start;      // Start of current linear stretch
-    Waypoint last;       // Last way-point visited
-    Waypoint cur;        // Way-point headed for -- current goal
-    Waypoint target;     // Target of current linear stretch
-    Waypoint dest;       // Latest way-point added -- current final destination
+    Waypoint start; // Start of current linear stretch
+    Waypoint last; // Last way-point visited
+    Waypoint cur; // Way-point headed for -- current goal
+    Waypoint target; // Target of current linear stretch
+    Waypoint dest; // Latest way-point added -- current final destination
 
     double nominalSpeed; // Tiles per sec. Negative ~ infinite
     double currentSpeed;
@@ -1489,13 +1497,13 @@ class CarModel implements CarI, Tickable {
 
     long baseStamp;
     long saveElapsed;
-    long baseLoc;       // Last starting location
-    long loc;           // current interpolated location
-    long step;          // Vector from baseLoc to current goal
-    double len;         // Length of step vector
+    long baseLoc; // Last starting location
+    long loc; // current interpolated location
+    long step; // Vector from baseLoc to current goal
+    double len; // Length of step vector
 
-    static volatile boolean slowdown = false;  // Go slow in slowdown area (shared
-                                               // by all cars)
+    static volatile boolean slowdown = false; // Go slow in slowdown area (shared
+                                              // by all cars)
 
     ClockI clk;
     Simulator<CarModel> sim;
@@ -1512,11 +1520,11 @@ class CarModel implements CarI, Tickable {
 
         Waypoint wp = Waypoint.allocate(canPos, wpCounter);
 
-        start  = wp;
-        last   = wp;
-        cur    = wp;
+        start = wp;
+        last = wp;
+        cur = wp;
         target = wp;
-        dest   = wp;
+        dest = wp;
 
         this.sim = sim;
         clk = sim.getClock();
@@ -1580,7 +1588,7 @@ class CarModel implements CarI, Tickable {
         /* A non-zero move is requested */
         Waypoint wp = Waypoint.allocate(canPos, wpCounter);
 
-        /* Set direction *towards* new destination */ 
+        /* Set direction *towards* new destination */
         long v = Location.sub(Location.location(canPos), Location.location(dest.pos));
         long dir = Location.direction(v);
         wp.dir = dir;
@@ -1589,7 +1597,7 @@ class CarModel implements CarI, Tickable {
 
         // Make it the new final destination
         dest.next = wp;
-        dest      = wp;
+        dest = wp;
 
         // See if current linear stretch can be extended
         extendTarget();
@@ -1659,10 +1667,10 @@ class CarModel implements CarI, Tickable {
     }
 
     void arriveAt(Waypoint wp) {
-        if (lastArrival > wp.id) { 
-            throw new IllegalArgumentException("arriveAt waypoint out of order"); 
+        if (lastArrival > wp.id) {
+            throw new IllegalArgumentException("arriveAt waypoint out of order");
         }
-        
+
         lastArrival = wp.id;
         if (wp.cb != null) {
             exec.submit(wp.cb);
@@ -1686,15 +1694,21 @@ class CarModel implements CarI, Tickable {
      * Discrete 3-step approximation of a braking/starting parabola
      */
     double parabola(double dist, double accel) {
-        double fullDist = (nominalSpeed*nominalSpeed) / (2*accel);
-        double frac = dist/fullDist;
-        if (frac < 0.10) { return nominalSpeed * 0.05; } 
-        if (frac < 0.30) { return nominalSpeed * 0.25; } 
-        if (frac < 0.75) { return nominalSpeed * 0.80; } 
+        double fullDist = (nominalSpeed * nominalSpeed) / (2 * accel);
+        double frac = dist / fullDist;
+        if (frac < 0.10) {
+            return nominalSpeed * 0.05;
+        }
+        if (frac < 0.30) {
+            return nominalSpeed * 0.25;
+        }
+        if (frac < 0.75) {
+            return nominalSpeed * 0.80;
+        }
         return nominalSpeed;
     }
 
-   boolean isSlow() {
+    boolean isSlow() {
         return (CarModel.slowdown && Layout.isSlowPos(Location.position(loc)));
     }
 
@@ -1712,18 +1726,22 @@ class CarModel implements CarI, Tickable {
     }
 
     double calcSpeed() {
-        if (nominalSpeed < 0.0) { return 0.0; }
-                
+        if (nominalSpeed < 0.0) {
+            return 0.0;
+        }
+
         double distFromStart = Location.dist(loc, start.loc);
-        double distToTarget  = Location.dist(loc, target.loc);
-        double leaveSpeed    = parabola(distFromStart,accel);
+        double distToTarget = Location.dist(loc, target.loc);
+        double leaveSpeed = parabola(distFromStart, accel);
         double approachSpeed = parabola(distToTarget, decel);
-        
+
         double standardSpeed = Math.min(approachSpeed, leaveSpeed);
         return standardSpeed * (isSlow() ? slowFactor : 1.0);
 
-        // double standardSpeed = Math.min(nominalSpeed, Math.min(arrivalCap(), departureCap()));
-        // return standardSpeed * (isSlow() ? slowFactor : 1.0) * (nearTarget(loc) ? nearFactor : 1.0);
+        // double standardSpeed = Math.min(nominalSpeed, Math.min(arrivalCap(),
+        // departureCap()));
+        // return standardSpeed * (isSlow() ? slowFactor : 1.0) * (nearTarget(loc) ?
+        // nearFactor : 1.0);
     }
 
     /*
@@ -1746,8 +1764,8 @@ class CarModel implements CarI, Tickable {
 
     /*
      * updateLocation calculates the actual location along the current
-     * step vector. 
-     * 
+     * step vector.
+     *
      * If the current goal is reached, this is recorded and a new goal defined.
      */
     void updateLocation() {
@@ -1759,7 +1777,7 @@ class CarModel implements CarI, Tickable {
             long oldLoc = loc;
             if (nominalSpeed < 0.0) {
                 last = cur;
-                loc  = cur.loc;
+                loc = cur.loc;
             } else {
                 long now = clk.getTime();
                 long deltaTime = now - baseStamp;
@@ -1808,7 +1826,7 @@ class CarModel implements CarI, Tickable {
 
             if (nominalSpeed < 0) {
                 last = cur;
-                loc  = cur.loc;
+                loc = cur.loc;
                 arriveAt(cur);
             } else {
                 fixStep();
@@ -1901,10 +1919,10 @@ class Location {
      * Locations are fine-grained positions within the playground represented as
      * fixed decimal values of the Pos coordinate system. (I.e. the x-axis
      * points downwards and the y axis to the right.)
-     * 
+     *
      * Locations are encoded as two ints within a long for efficient
      * communication to the GUI.
-     * 
+     *
      * This class provides various conversion functions for this encoding as
      * well as some vector operations.
      */
@@ -1981,7 +1999,9 @@ class Location {
     // (Kind of) unit-vector
     static long direction(long v) {
         double len = len(v);
-        if (len == 0.0) { throw new IllegalArgumentException("direction called with null vector"); }
+        if (len == 0.0) {
+            throw new IllegalArgumentException("direction called with null vector");
+        }
         return scale(v, 1.0 / len);
     }
 

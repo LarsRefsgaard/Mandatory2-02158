@@ -7,7 +7,7 @@
 public class MonoAlley extends Alley {
 
     Semaphore mutex;
-    
+
     protected MonoAlley() {
         mutex = new Semaphore(1);
     }
@@ -21,5 +21,5 @@ public class MonoAlley extends Alley {
     public void leave(int no) {
         mutex.V();
     }
-    
+
 }

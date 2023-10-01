@@ -6,16 +6,19 @@
 
 public class Alley {
 
-    protected Alley() { }
+    protected Alley() {
+    }
 
     public static Alley create() {
-        return new Alley();                                     // Change to use desired implementation
+        return new Alley(); // Change to use desired implementation
     }
 
     /* Block until car no. may enter alley */
-    public void enter(int no) throws InterruptedException { }
+    public void enter(int no) throws InterruptedException {
+    }
 
     /* Register that car no. has left the alley */
-    public void leave(int no) { }
-    
+    public void leave(int no) {
+    }
+
 }

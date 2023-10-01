@@ -1,4 +1,4 @@
-//Implementation of position class 
+//Implementation of position class
 //Mandatory assignment 2
 //Course 02158 Concurrent Programming, DTU,  Fall 2023
 
@@ -7,13 +7,17 @@
 
 public class Pos {
 
-    public int row;       // Note: public
+    public int row; // Note: public
     public int col;
 
-    public Pos(int i, int j) { row = i;  col = j; }
+    public Pos(int i, int j) {
+        row = i;
+        col = j;
+    }
 
     public static boolean equal(Pos p1, Pos p2) {
-        if (p1 == null || p2 == null) return false;
+        if (p1 == null || p2 == null)
+            return false;
         return (p1.row == p2.row) && (p1.col == p2.col);
     }
 
@@ -22,10 +26,10 @@ public class Pos {
     }
 
     public boolean equals(Object p) {
-        return (p instanceof Pos && Pos.equal(this,(Pos) p));
+        return (p instanceof Pos && Pos.equal(this, (Pos) p));
     }
 
-    public int hashCode() { 
+    public int hashCode() {
         // Borrowed from java.awt.geom.Point2D
         long bits = java.lang.Double.doubleToLongBits(row);
         bits ^= java.lang.Double.doubleToLongBits(col) * 31;
@@ -33,8 +37,7 @@ public class Pos {
     }
 
     public String toString() {
-        return "("+row+","+col+")";
+        return "(" + row + "," + col + ")";
     }
 
 }
-
