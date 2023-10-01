@@ -81,8 +81,8 @@ class Conductor extends Thread {
     boolean atExit(Pos pos) {
         return (pos.row == 0 && pos.col == 0) || (pos.row == 9 && pos.col == 1);
     }
-
-    public void run() {
+    // --------------------------------
+      public void run() {
         try {
             CarI car = cd.newCar(no, col, startpos);
             curpos = startpos;
@@ -117,6 +117,7 @@ class Conductor extends Thread {
             e.printStackTrace();
         }
     }
+    // --------------------------------
 
 }
 
