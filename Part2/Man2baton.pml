@@ -19,19 +19,14 @@ int s_down = 0;
 
 int cars = 0;
 
-int semEmpty = 1;
-int semFull = 0;
-
 inline enter(N_group1, N_group2, D_group1, S_group1) {
 	P(e);
 	if
 	::	N_group2 > 0 -> D_group1 = D_group1 + 1 ; V(e); P(S_group1)
 	:: 	else -> skip
 	fi;
-	V(semFull);
 	N_group1 = N_group1 + 1;
 	cars = cars + 1;
-	P(semEmpty);
 	if
 	::	D_group1 > 0 -> D_group1 = D_group1 - 1; V(S_group1)
 	:: 	else -> V(e)
@@ -54,22 +49,20 @@ active [N] proctype PS() {
 	::
 		if
 		::
-			_pid < 4 ->
-						P(semEmpty);
+			_pid < 4 -> // P(semEmpty);
 						enter(n_up, n_down, d_up, s_up);
 						assert(n_up == 0 || n_down == 0);
 						leave(n_up, d_down, s_down);
-						V(semFull)
+						// V(semFull);
 		fi;
 
 		if
 		::
-			_pid >= 4 ->
-						P(semEmpty);
+			_pid >= 4 ->// P(semFull);
 						enter(n_down, n_up, d_down, s_down);
 						assert(n_up == 0 || n_down == 0);
 						leave(n_down, d_up, s_up);
-						V(semFull);
+						// V(semEmpty);
 
 		fi
 	od
